@@ -8,7 +8,7 @@ const TaskBar = () => {
   const currentPath = usePathname();
 
   const tabs = [
-    { name: 'Home', icon: 'home-outline', route: '/' },
+    { name: 'Home', icon: 'home-outline', route: '/Home' },
     { name: 'History', icon: 'time-outline', route: '/History' },
     { name: 'Order', icon: 'cart-outline', route: '/Order' },
     { name: 'Notification', icon: 'notifications-outline', route: '/Notification' },
