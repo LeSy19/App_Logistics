@@ -1,94 +1,63 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import TaskBar from './TaskBar/TaskBar';
 import { useRouter } from 'expo-router';
 
-const Account = () => {
+export default function Account () {
   const router = useRouter();
-
-  const handleEditInformation = () => {
-    router.push('/EditInformation');
-  };
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* View 1: Hello User + Icon */}
         <View style={styles.row}>
-          <Text style={styles.greeting}>Hello User</Text>
-          <Ionicons name="person" size={30} color="black" />
+          <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }} style={styles.profileImage} />
+          <View />
+          <Text style={styles.greeting}>Le Van Sy</Text>
+          <Text style={styles.phoneNumber}>0905008230</Text>
+          <View />
+        </View>
+        <View style={styles.optionContainer}>
+          <TouchableOpacity style={styles.optionRow} onPress={() => router.push('/Profile')}>
+            <Ionicons name="person" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>Your Profile</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow}>
+            <Ionicons name="notifications" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>Notifications</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow}>
+            <Ionicons name="settings" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>Settings</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow}>
+            <Ionicons name="language" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>Language</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow} onPress={() => router.replace('/(tabs)')}>
+            <Ionicons name="log-out" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>Log Out</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow}>
+            <Ionicons name="information-circle" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>About Us</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionRow}>
+            <Ionicons name="help-circle" size={20} color="black" style={styles.iconOption} />
+            <Text style={styles.textOption}>Help</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Hàng 2 - 5: Name, Email, Phone Number, Address */}
-        <View style={styles.infoRow}>
-          <Text>Name</Text>
-          <View style={styles.underline} />
-        </View>
-        <View style={styles.infoRow}>
-          <Text>Email</Text>
-          <View style={styles.underline} />
-        </View>
-        <View style={styles.infoRow}>
-          <Text>Phone Number</Text>
-          <View style={styles.underline} />
-        </View>
-        <View style={styles.infoRow}>
-          <Text>Address</Text>
-          <View style={styles.underline} />
-        </View>
-
-        {/* Button Edit Information */}
-        <TouchableOpacity style={styles.button} onPress={handleEditInformation}>
-          <Text style={styles.buttonText}>Edit Information</Text>
-        </TouchableOpacity>
-
-        {/* Line separator */}
-        <View style={styles.separator} />
-
-        {/* View 2: General */}
-        <Text style={styles.sectionTitle}>General</Text>
-        <TouchableOpacity style={styles.optionRow}>
-          <Text>Favorite</Text>
-          <Ionicons name="chevron-forward" size={20} color="black" />
-        </TouchableOpacity>
-        <View style={styles.underline} />
-        <TouchableOpacity style={styles.optionRow}>
-          <Text>Payment</Text>
-          <Ionicons name="chevron-forward" size={20} color="black" />
-        </TouchableOpacity>
-        <View style={styles.underline} />
-        <TouchableOpacity style={styles.optionRow}>
-          <Text>Setting</Text>
-          <Ionicons name="chevron-forward" size={20} color="black" />
-        </TouchableOpacity>
-        <View style={styles.underline} />
-
-        {/* View 3: Help */}
-        <Text style={styles.sectionTitle}>Help</Text>
-        <TouchableOpacity style={styles.optionRow}>
-          <Text>Help Center</Text>
-          <Ionicons name="chevron-forward" size={20} color="black" />
-        </TouchableOpacity>
-        <View style={styles.underline} />
-        <TouchableOpacity style={styles.optionRow}>
-          <Text>About Us</Text>
-          <Ionicons name="chevron-forward" size={20} color="black" />
-        </TouchableOpacity>
-        <View style={styles.underline} />
-        <TouchableOpacity style={styles.optionRow}>
-          <Text>Share Feedback</Text>
-          <Ionicons name="chevron-forward" size={20} color="black" />
-        </TouchableOpacity>
-        <View style={styles.underline} />
-
-        {/* Button Driver Registration */}
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Driver Registration</Text>
-        </TouchableOpacity>
       </ScrollView>
-      
-      <TaskBar/>
+
+      <TaskBar />
     </View>
   );
 };
@@ -103,52 +72,42 @@ const styles = StyleSheet.create({
     paddingBottom: 80, // Add some bottom padding to account for the TaskBar
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+
     alignItems: 'center',
     marginBottom: 20,
+  },
+  profileImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 25,
   },
   greeting: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginVertical: 5,
   },
-  infoRow: {
-    marginBottom: 10,
+  phoneNumber: {
+    fontSize: 16,
   },
-  underline: {
-    height: 1,
-    backgroundColor: '#ccc',
-    marginTop: 5,
-  },
-  separator: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#000',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  optionContainer: {
+    flex: 1,
     marginVertical: 10,
   },
   optionRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    padding: 20,
+    backgroundColor: '#D9D9D9',
+    marginVertical: 5,
+    borderRadius: 10,
   },
-  button: {
-    backgroundColor: '#007AFF',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 20,
+  iconOption: {
+    color: '#666666'
   },
-  buttonText: {
-    color: 'white',
+  textOption: {
+    marginLeft: 10,
     fontSize: 16,
-    fontWeight: 'bold',
+    color: '#4D4D4D'
   },
 });
 
-export default Account;

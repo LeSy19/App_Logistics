@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import TaskBar from './TaskBar/TaskBar';
@@ -15,18 +16,37 @@ interface OrderItemProps {
 
 const OrderItem: React.FC<OrderItemProps> = ({ date, status, pickupLocation, deliveryLocation, weight, dimensions }) => (
   <ThemedView style={styles.orderItem}>
-    <ThemedText style={styles.date}>{date}</ThemedText>
-    <ThemedText style={styles.status}>{status}</ThemedText>
-    <ThemedText>Pickup: {pickupLocation}</ThemedText>
-    <ThemedText>Delivery: {deliveryLocation}</ThemedText>
-    <ThemedText>Weight: {weight}</ThemedText>
-    <ThemedText>Dimensions: {dimensions}</ThemedText>
+    <View style={styles.dateContainer}>
+      <ThemedText>{date}</ThemedText>
+    </View>
+    <View style={styles.infoContainer}>
+      <View style={styles.infoRow}>
+        <ThemedText>Status:</ThemedText>
+        <ThemedText style={styles.textValue}>{status}</ThemedText>
+      </View>
+      <View style={styles.infoRow}>
+        <ThemedText>Pickup Location:</ThemedText>
+        <ThemedText style={styles.textValue}>{pickupLocation}</ThemedText>
+      </View>
+      <View style={styles.infoRow}>
+        <ThemedText>Delivery Location:</ThemedText>
+        <ThemedText style={styles.textValue}>{deliveryLocation}</ThemedText>
+      </View>
+      <View style={styles.infoRow}>
+        <ThemedText>Weight:</ThemedText>
+        <ThemedText style={styles.textValue}>{weight}</ThemedText>
+      </View>
+      <View style={styles.infoRow}>
+        <ThemedText>Dimensions:</ThemedText>
+        <ThemedText style={styles.textValue}>{dimensions}</ThemedText>
+      </View>
+    </View>
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.button}>
         <ThemedText style={styles.buttonText}>Rate</ThemedText>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <ThemedText style={styles.buttonText}>View Details</ThemedText>
+      <TouchableOpacity>
+        <ThemedText style={styles.textViewDetails}>View Details</ThemedText>
       </TouchableOpacity>
     </View>
   </ThemedView>
@@ -62,14 +82,30 @@ export default function History() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
-        {orders.map((order, index) => (
-          <OrderItem key={index} {...order} />
-        ))}
-      </ScrollView>
-      <TaskBar />
-    </SafeAreaView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+       
+
+        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
+           {/* Search Bar */}
+        
+          <View style={styles.searchContainer}>
+            <View style={styles.searchBar}>
+              <TextInput placeholder="Search" style={styles.searchInput} />
+              <TouchableOpacity style={styles.searchButton}>
+                <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/54/54481.png' }} style={styles.searchIcon} />
+              </TouchableOpacity>
+            </View>
+            <Image source={require('../assets/images/Group28.png')} style={styles.searchRightIcon} />
+          </View>
+        
+          {orders.map((order, index) => (
+            <OrderItem key={index} {...order} />
+          ))}
+        </ScrollView>
+        <TaskBar />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
@@ -81,7 +117,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollViewContent: {
-    padding: 16,
+    padding: 20,
     paddingBottom: 80, // Add extra padding at the bottom to ensure content is not covered by TaskBar
   },
   title: {
@@ -96,13 +132,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
   },
-  date: {
-    fontWeight: 'bold',
+  dateContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 8,
+  },
+  
+  infoContainer: {
+    flexDirection: 'column',
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 4,
   },
-  status: {
-    fontStyle: 'italic',
-    marginBottom: 8,
+  textValue: {
+    fontWeight: 'bold',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -110,14 +155,55 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   button: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#660008',
     padding: 8,
     borderRadius: 4,
-    flex: 1,
-    marginHorizontal: 4,
     alignItems: 'center',
+    height: 40,
+    width: 120,
   },
   buttonText: {
     color: 'white',
+  },
+  textViewDetails: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 8,
+    color: '#009DF6',
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  searchBar: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#000000',
+    borderRadius: 8,
+    padding: 10,
+    height: 45,
+    flex: 1,
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+  },
+  searchButton: {
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchIcon: {
+    width: 20,
+    height: 20,
+    alignSelf: 'center',
+  },
+  searchRightIcon: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
   },
 });
