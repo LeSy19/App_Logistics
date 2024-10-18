@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -36,100 +36,108 @@ const Register = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Logo nested within image and centered */}
-      <View style={styles.viewContainer}>
-        <Image style={styles.image} source={require('../assets/images/image_5.png')} />
-        <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require('../assets/images/Remove-bg.ai_1727594388867 1.png')} />
-        </View>
-      </View>
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <ScrollView
+          ref={scrollViewRef}
+          contentContainerStyle={styles.scrollViewContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.innerContainer}>
+            <Text style={styles.title}>Register a new account</Text>
 
-      {/* Register */}
-      <View style={styles.registerFormContainer}>
-        <Text style={styles.title}>Sign Up</Text>
+            <Text style={styles.label}>Fullname</Text>
+            <TextInput
+              placeholder="Enter your fullname"
+              value={fullname}
+              onChangeText={setFullname}
+              style={styles.input}
+              onFocus={() => handleScrollTo(0)}
+            />
 
-        {/* Form */}
-        <TextInput
-          placeholder="Full name"
-          style={styles.input}
-          value={fullname}
-          onChangeText={setFullname}
-        />
-        <TextInput
-          placeholder="Phone number"
-          style={styles.input}
-          keyboardType="phone-pad"
-          value={phone}
-          onChangeText={setPhone}
-        />
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          placeholder="Password"
-          style={styles.input}
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TextInput
-          placeholder="Confirm password"
-          style={styles.input}
-          secureTextEntry={!showConfirmPassword}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
-        <TextInput
-          placeholder="Address"
-          style={styles.input}
-          value={address}
-          onChangeText={setAddress}
-        />
+            <Text style={styles.label}>Phone Number</Text>
+            <TextInput
+              placeholder="Enter your phone number"
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="phone-pad"
+              style={styles.input}
+              onFocus={() => handleScrollTo(50)}
+            />
 
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              placeholder="Enter your email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              style={styles.input}
+              onFocus={() => handleScrollTo(100)}
+            />
 
-       
-        {/* Login */}
-        <View style={styles.loginContainer}>
-          <Text style={styles.text}>Do you have an account? </Text>
-          <TouchableOpacity onPress={handleLogin}>
-            <Text style={styles.loginText}> Login now</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+            <Text style={styles.label}>Password</Text>
+            <View style={styles.passwordContainer}>
+              <TextInput
+                placeholder="Enter your password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+                style={styles.passwordInput}
+                onFocus={() => handleScrollTo(150)}
+              />
+              <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon}>
+                <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.label}>Confirm Password</Text>
+            <View style={styles.passwordContainer}>
+              <TextInput
+                placeholder="Re-enter your password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry={!showConfirmPassword}
+                style={styles.passwordInput}
+                onFocus={() => handleScrollTo(200)}
+              />
+              <TouchableOpacity onPress={toggleShowConfirmPassword} style={styles.eyeIcon}>
+                <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.label}>Address</Text>
+            <TextInput
+              placeholder="Enter your address"
+              value={address}
+              onChangeText={setAddress}
+              style={styles.input}
+              onFocus={() => handleScrollTo(250)}
+            />
+
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+
+            <View style={styles.loginContainer}>
+              <Text>Already have an account?</Text>
+              <TouchableOpacity onPress={handleLogin}>
+                <Text style={styles.loginText}> Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  viewContainer: {
-    height: 200,
-    alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height:200,
-  },
-  logoContainer: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 0,
-    bottom: 0,
-  },
-  logo: {
-    width: 80,
-    height: 80,
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -149,7 +157,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
     padding: 10,
@@ -172,12 +179,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    backgroundColor: '#99000C',
+    backgroundColor: '#007AFF',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 50,
   },
   buttonText: {
     color: 'white',
@@ -188,26 +194,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
-    marginBottom: 20,
-  },
-  text: {
-    color: '#E70012',
   },
   loginText: {
-    color: '#99000C',
+    color: 'blue',
     marginLeft: 5,
-    fontWeight: 'bold',
   },
-  
-  registerFormContainer: {
-    flex: 1,
-    padding: 20,
-    marginTop: -30, // Adjust as needed
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    backgroundColor: '#fff',
-  },
-  
 });
 
 export default Register;

@@ -1,79 +1,81 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router'; // Import useRouter from 'expo-router'
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
 
-  
+  const handleLogin = () => {
+    // Use replace instead of push to prevent going back to the login screen
+    router.replace('/Home');
+  };
+
+  const handleSignUp = () => {
+    router.push('/SignUp');
+  };
+
   return (
     <View style={styles.container}>
-      {/* Logo nested within image and centered */}
-      <View style={styles.viewContainer}>
-        <Image style={styles.image} source={require('../../assets/images/image_5.png')} />
-        <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require('../../assets/images/Remove-bg.ai_1727594388867 1.png')} />
-        </View>
-      </View>
-    
-      {/* Login */}
-      <View style={styles.loginFormContainer}>
-        <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Welcome!</Text>
 
-        {/* Form */}
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+
+      <View style={styles.passwordContainer}>
         <TextInput
-          placeholder="Enter email"
-          style={styles.input}
-          keyboardType="email-address"
+          style={styles.inputPassword}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
         />
-        <View style={styles.passwordContainer}>
-          <TextInput
-            placeholder="Enter password"
-            secureTextEntry={!showPassword}
-            style={styles.inputPassword}
-          />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Text style={styles.eyeIcon}>{showPassword ? '👀' : '👁'}</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={styles.eyeIcon}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          <FontAwesome name={showPassword ? 'eye' : 'eye-slash'} size={20} color="gray" />
+        </TouchableOpacity>
+      </View>
 
-        {/* Forgot password */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>Login</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.orText}>Or login with</Text>
+
+      <View style={styles.socialIconsContainer}>
+        <TouchableOpacity style={styles.iconCircle}>
+          <FontAwesome name="facebook" size={24} color="blue" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconCircle}>
+          <FontAwesome name="apple" size={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconCircle}>
+          <FontAwesome name="google" size={24} color="red" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.footer}>
         <TouchableOpacity>
-          <Text style={styles.forgotPassword}>Forgot password</Text>
+          <Text style={styles.footerText}>Forgot password</Text>
         </TouchableOpacity>
-
-        {/* Login button */}
-        <TouchableOpacity style={styles.loginButton} onPress={() => router.replace('/Home')}>
-          <Text style={styles.loginButtonText}>Login</Text>
+        <TouchableOpacity onPress={handleSignUp}>
+          <Text style={styles.footerText}>Don't have an account? Sign up</Text>
         </TouchableOpacity>
-
-        {/* Or */}
-        
-        <Text style={styles.or}>or</Text>
-        
-
-        {/* Other login buttons */}
-        <TouchableOpacity style={styles.socialButton}>
-          <Image style={styles.socialIcon} source={require('../../assets/images/icon_facebook.png')} />
-          <Text>Login with Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton}>
-          <Image style={styles.socialIcon} source={require('../../assets/images/icon_google.png')} />
-          <Text>Login with Google</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton}>
-          <Image style={styles.socialIcon} source={require('../../assets/images/icon_apple.png')} />
-          <Text>Login with Apple ID</Text>
-        </TouchableOpacity>
-
-        {/* Register */}
-        <View style={styles.registerContainer}>
-          <Text style={styles.text}>Don't have an account? </Text>
-          <TouchableOpacity onPress={() => router.replace('/SignUp')}>
-            <Text style={styles.registerText}>Sign up now</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
@@ -82,115 +84,86 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-   
-  },
-  viewContainer: {
-    height: 200,
+    justifyContent: 'flex-start',
     alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height:200,
-  },
-  logoContainer: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 0,
-    bottom: 0,
-  },
-  logo: {
-    width: 80,
-    height: 80,
+    padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 38,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 30,
+    marginTop: 170,
+    marginBottom: 70,
   },
   input: {
-    backgroundColor: '#f5f5f5',
-    padding: 15,
-    borderRadius: 10,
+    width: '100%',
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
     marginBottom: 30,
   },
   passwordContainer: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 10,
+    marginBottom: 50,
   },
   inputPassword: {
     flex: 1,
-    padding: 15,
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
   },
   eyeIcon: {
-    paddingRight: 10,
-    fontSize: 18,
-  },
-  forgotPassword: {
-    textAlign: 'right',
-    color: 'red',
-    marginTop: 10,
-    marginBottom: 20,
+    position: 'absolute',
+    right: 10,
   },
   loginButton: {
-    backgroundColor: '#b71c1c',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center', // Changed to center text vertically
-    marginBottom: 10,
+    width: '100%',
     height: 60,
+    backgroundColor: '#4CAF50',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginBottom: 20,
   },
   loginButtonText: {
     color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: 18, // Changed to center text horizontally
-  },
-  or: {
-    textAlign: 'center',
-    marginVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-  },
-  
-  socialButton: {
-    backgroundColor: '#f5f5f5',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  socialIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 10,
-  },
-  registerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  text: {
-    color: '#E70012',
-  },
-  registerText: {
-    color: '#99000C',
+    fontSize: 18,
     fontWeight: 'bold',
   },
-  loginFormContainer: {
-    flex: 1,
-    padding: 20,
-    marginTop: -30, // Push login form over viewContainer
-    borderTopLeftRadius: 30, // Border-radius on top
-    borderTopRightRadius: 30, // Border-radius on top
-    backgroundColor: '#fff',
+  orText: {
+    fontSize: 16,
+    marginBottom: 30,
+  },
+  socialIconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '60%',
+    marginBottom: 30,
+  },
+  iconCircle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#e6e6e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  footer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    position: 'absolute',
+    bottom: 60,
+  },
+  footerText: {
+    fontSize: 16,
+    color: '#0066cc',
+    textDecorationLine: 'underline',
+    marginBottom: 20,
   },
 });

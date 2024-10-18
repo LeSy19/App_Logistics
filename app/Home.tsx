@@ -1,303 +1,229 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+import { FontAwesome, MaterialIcons, Entypo } from '@expo/vector-icons';
 import TaskBar from './TaskBar/TaskBar';
-import { useRouter } from 'expo-router';
-const HomeScreen = () => {
-  const router = useRouter();
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { faBold } from '@fortawesome/free-solid-svg-icons';
 
+const { width } = Dimensions.get('window');
+const CAROUSEL_ITEM_WIDTH = 250;
+const AUTO_SCROLL_INTERVAL = 3000; // 3 seconds
+
+
+
+export default function HomeScreen() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const carouselItems = [
+    { icon: "square", color: "#4A90E2", size: 50, order: "1st" },
+    { icon: "arrow-up", color: "#D0021B", size: 40, order: "2nd" },
+    { icon: "star", color: "#F5A623", size: 50, order: "3rd" },
+    { icon: "heart", color: "#D0021B", size: 50, order: "4th" },
+  ];
+
+  
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (currentIndex < carouselItems.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        setCurrentIndex(0);
+      }
+    }, AUTO_SCROLL_INTERVAL);
+
+    return () => clearInterval(timer);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollTo({
+      x: currentIndex * CAROUSEL_ITEM_WIDTH,
+      animated: true,
+    });
+  }, [currentIndex]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f0f0f0' }}>
-      <ScrollView>
-      <View style={styles.container}>
-        {/* Header Section */}
-        <View style={styles.header}>
-          <View style={styles.leftSection}>
-            <TouchableOpacity style={styles.personButton} onPress={() => router.push('/Account')}>
-              <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }} style={styles.personIcon} />
-            </TouchableOpacity>
-            <View style={styles.addressRow}>
-              <Text style={styles.addressLabel}>Address</Text>
-              <Text style={styles.addressValue}>288, Do Xuan Hop</Text>
+    <View style={styles.container}>
+      {/* Header with logo */}
+      <View style={styles.header}>
+       
+        {/* Carousel */}
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          style={styles.carousel}
+          onMomentumScrollEnd={(event) => {
+            const newIndex = Math.round(event.nativeEvent.contentOffset.x / CAROUSEL_ITEM_WIDTH);
+            setCurrentIndex(newIndex);
+          }}
+        >
+          {carouselItems.map((item, index) => (
+            <View key={index} style={styles.carouselItem}>
+              {item.icon === "square" && (
+                <>
+                  <FontAwesome name="circle" size={30} color="#50E3C2" />
+                  <FontAwesome name="caret-up" size={40} color="#F5A623" />
+                </>
+              )}
+              <Text style={styles.orderText}>{item.order}</Text>
             </View>
-          </View>
-          <TouchableOpacity style={styles.notificationButton}>
-            <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1827/1827392.png' }} style={styles.notificationIcon} />
-          </TouchableOpacity>
-        </View>
-
-        {/* Search Bar */}
-        <View style={styles.searchBar}>
-          <TextInput placeholder="Recent shipment" style={styles.searchInput} />
-          <TouchableOpacity style={styles.searchButton}>
-            <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/54/54481.png' }} style={styles.searchIcon} />
-          </TouchableOpacity>
-        </View>
-
-        {/* Order Position Section */}
-        <View style={styles.orderPosition}>
-
-          <View style={styles.orderHeader}>
-            <View style={styles.orderLeft}>
-              <Text style={styles.orderTitle}>Order Position</Text>
-              <Text style={styles.orderSubtitle}>Please enter your shipment number</Text>
-            </View>
-            <View style={styles.orderRight}>
-              <TouchableOpacity>
-                <Image source={require('../assets/images/Remove-bg.ai_1727594388867 1.png')} />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.orderInputContainer}>
-            <TextInput placeholder="Your position" style={styles.orderInput} />
-            <TouchableOpacity style={styles.scanButton}>
-              <Image source={require('../assets/images/scan.png')} style={styles.scanIcon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Pickup & Delivery Section */}
-        <View style={styles.deliverySection}>
-          <View style={styles.delivery}>
-            <Text style={styles.deliveryLabel}>Pickup</Text>
-            <Text style={styles.deliveryValue}>288, Do Xuan Hop</Text>
-          </View>
-          <View style={styles.delivery}>
-            <Text style={styles.deliveryLabel}>Delivery</Text>
-            <Text style={styles.deliveryValue}>141, Le Van Viet</Text>
-          </View>
-        </View>
-
-        {/* Action Buttons */}
-        <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionButton}>
-            <Image source={require('../assets/images/image17.png')} />
-            <Text style={styles.actionText}>Check Goods</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
-            <Image source={require('../assets/images/TaoDon.png')} />
-            <Text style={styles.actionText}>Create Order</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
-            <Image source={require('../assets/images/TraCuu.png')} />
-            <Text style={styles.actionText}>Track</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Vehicle Options */}
-        <View style={styles.vehicleSection}>
-          <Text style={styles.sectionTitle}>Vehicle Options</Text>
-          <View style={styles.vehicleRow}>
-            <TouchableOpacity style={styles.vehicleItem}>
-              <Text style={styles.vehicleText}>Pickup Truck</Text>
-              <Image source={require('../assets/images/XeBanTai.png')} style={styles.vehicleIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.vehicleItem}>
-            <Text style={styles.vehicleText}>Truck</Text>
-            <Image source={require('../assets/images/XeTai.png')} style={styles.vehicleIcon} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.vehicleRow}>
-            <TouchableOpacity style={styles.vehicleItem}>
-            <Text style={styles.vehicleText}>Container</Text>
-            <Image source={require('../assets/images/Container.png')} style={styles.vehicleIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.vehicleItem}>
-            <Text style={styles.vehicleText}>Other</Text>
-            <Image source={require('../assets/images/Khac.png')} style={styles.vehicleIcon} />
-            </TouchableOpacity>
-          </View>
-          
-        </View>
-
-        
+          ))}
+        </ScrollView>
       </View>
-      </ScrollView>
-      <TaskBar/>
+
+      {/* Location and delivery point */}
+      <View style={styles.locationContainer}>
+        <View style={styles.locationRow}>
+          <Entypo name="location-pin" size={24} color="#F5A623" />
+          <Text style={styles.locationText}>Pick up location</Text>
+          <MaterialIcons name="map" size={24} color="#4A90E2" style={styles.mapIcon} />
+          <Text style={styles.locationText}>Your location</Text>
+        </View>
+
+        <View style={styles.locationRow}>
+          <Entypo name="location" size={20} color="#9B9B9B" />
+          <Text style={styles.locationText}>Delivery location</Text>
+          <MaterialIcons name="map" size={24} color="#4A90E2" style={styles.mapIcon} />
+          <Text style={styles.locationText}>Delivery point</Text>
+        </View>
+
+        <TouchableOpacity style={styles.addLocationButton}>
+        <AntDesign name="checkcircleo" size={24} color="black" />
+          <Text style={styles.addLocationText}>Check goods</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.addLocationButton}>
+        <Ionicons name="create-outline" size={24} color="black" />
+          <Text style={styles.addLocationText}>Create order</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.addLocationButton}>
+        <AntDesign name="search1" size={24} color="black" />
+          <Text style={styles.addLocationText}>Look up</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Available vehicles */}
+      <View style={styles.vehicleContainer}>
+      <Text style={styles.vehicleText1} >Vehicle</Text>
+        <TouchableOpacity style={styles.vehicleOption}>
+         
+        <FontAwesome5 name="truck-pickup" size={24} color="black" style={styles.vehicleIcon} />
+          <Text style={styles.vehicleText}>Pickup truck</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.vehicleOption}>
+         
+          <FontAwesome name="truck" size={24} color="black" style={styles.vehicleIcon} />
+          <Text style={styles.vehicleText}>Truck</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.vehicleOption}>
+         
+        <MaterialCommunityIcons name="truck-cargo-container" size={24} color="black" style={styles.vehicleIcon} />
+          <Text style={styles.vehicleText}>Container</Text>
+        </TouchableOpacity>
+      </View>
+
+     <TaskBar/>
     </View>
-    
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-    marginBottom: 30,
+    backgroundColor: '#F8F8F8',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
-    marginTop: 30,
+    padding: 20,
+    marginBottom: 30,
   },
-  leftSection: {
-    flexDirection: 'row', // Arrange icon and text side by side
-    alignItems: 'center', // Center icon and text vertically
+  carousel: {
+    height: 120,
   },
-  personButton: {
-    padding: 10,
-  },
-  personIcon: {
-    width: 40,
-    height: 40,
-  },
-  addressText: {
-    fontSize: 16,
-  },
-  notificationButton: {
-    padding: 10,
-  },
-  notificationIcon: {
-    alignItems: 'flex-end',
-    width: 24,
-    height: 24,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    height: 45,
-  },
-  searchInput: {
-    flex: 1,
-  },
-  searchButton: {
-    padding: 10,
-    alignItems: 'center',
+  carouselItem: {
+    width: CAROUSEL_ITEM_WIDTH,
+    height: 120,
+    backgroundColor: '#D9D9D9',
     justifyContent: 'center',
-  },
-  searchIcon: {
-    width: 20,
-    height: 20,
-    alignSelf: 'center',
-  },
-  orderPosition: {
-    backgroundColor: '#99000C',
-    padding: 15,
+    alignItems: 'center',
     borderRadius: 10,
-    marginBottom: 20,
-    height: 200,
+    marginRight: 10,
   },
-  orderHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  orderLeft: {
-    alignItems: 'flex-start',
-  },
-  orderRight: {
-    alignItems: 'flex-end',
-  },
-  orderTitle: {
-    color: '#fff',
-    fontSize: 16,
+  orderText: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    fontSize: 18,
     fontWeight: 'bold',
+    color: '#333333',
   },
-  orderSubtitle: {
-    color: '#fff',
-    fontSize: 14,
-  },
-  orderInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 10,
-    marginTop: 20,
-  },
-  orderInput: {
-    flex: 1,
-  },
-  scanButton: {
-    padding: 10,
-  },
-  scanIcon: {
-    width: 24,
-    height: 24,
-  },
-  deliverySection: {
-    marginBottom: 20,
-    backgroundColor: '#CCCCCC',
+  locationContainer: {
     padding: 20,
-    borderRadius: 10,
   },
-  addressRow: {
-    alignItems: 'flex-start',
-  },
-  addressLabel: {
-    fontSize: 14,
-    color: '#888',
-  },
-  addressValue: {
-    fontSize: 14,
-  },
-  delivery: {
+  locationRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  deliveryLabel: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  deliveryValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  actionButton: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    padding: 10,
-    marginHorizontal: 5,
     alignItems: 'center',
-    borderRadius: 8,
-  },
-  actionText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  vehicleSection: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
     marginBottom: 10,
   },
-  vehicleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+  locationText: {
+    color: '#333333',
+    marginLeft: 10,
+    fontSize: 20,
   },
-  vehicleItem: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+  mapIcon: {
+    marginLeft: 'auto',
+  },
+  addLocationButton: {
+    backgroundColor: '#E6E6E6',
     padding: 20,
-    borderRadius: 8,
-    marginHorizontal: 5,
-    
+    borderRadius: 5,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  addLocationText: {
+    fontSize: 20,
+    color: '#4A90E2',
+  },
+  vehicleContainer: {
+    paddingHorizontal: 20,
+    marginTop: 40,
+  },
+  vehicleOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 5,
+    marginBottom: 20,
+    height: 70,
+  },
+  
+  vehicleIcon: {
+    marginRight: 30,
   },
   vehicleText: {
-    fontSize: 18,
-    marginBottom: 15,
+    fontSize: 20,
+    color: 'black',
   },
-  vehicleIcon: {
-    width: '50%',
-    height: 40,
+  vehicleText1: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'black',
   },
 });
-
-export default HomeScreen;

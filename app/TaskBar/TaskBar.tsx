@@ -10,7 +10,9 @@ const TaskBar = () => {
   const tabs = [
     { name: 'Home', icon: 'home-outline', route: '/Home' },
     { name: 'History', icon: 'time-outline', route: '/History' },
-    { name: 'Message', icon: 'chatbubbles-outline', route: '/Message' },
+    { name: 'Order', icon: 'cart-outline', route: '/Order' },
+    { name: 'Notification', icon: 'notifications-outline', route: '/Notification' },
+    { name: 'Account', icon: 'person-outline', route: '/Account' },
   ];
 
   return (
