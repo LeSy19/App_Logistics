@@ -21,7 +21,7 @@ const HomeScreen = () => {
               <Text style={styles.addressValue}>288, Do Xuan Hop</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.notificationButton}>
+          <TouchableOpacity style={styles.notificationButton} onPress={() => router.push('/Notification')}>
             <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1827/1827392.png' }} style={styles.notificationIcon} />
           </TouchableOpacity>
         </View>

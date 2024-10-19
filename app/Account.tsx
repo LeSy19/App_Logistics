@@ -34,7 +34,7 @@ export default function Account () {
             <Text style={styles.textOption}>Settings</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionRow}>
+          <TouchableOpacity style={styles.optionRow} onPress={() => router.replace('/PaymentMethod')}>
             <Ionicons name="language" size={20} color="black" style={styles.iconOption} />
             <Text style={styles.textOption}>Language</Text>
           </TouchableOpacity>
