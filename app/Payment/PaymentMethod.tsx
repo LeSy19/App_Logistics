@@ -3,13 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter, useNavigation } from 'expo-router';
 
-const ForgotPassword = () => {
+const PaymentMethod = () => {
 
     const router = useRouter();
     const navigation = useNavigation();
 
-    const [secureTextEntry, setSecureTextEntry] = useState(true);
-    const [secureTextEntryConfirm, setSecureTextEntryConfirm] = useState(true);
 
     useEffect(() => {
         // Set the header title
@@ -35,7 +33,7 @@ const ForgotPassword = () => {
                 <Text style={styles.methodText}>Online Banking</Text>
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => router.push('./PaymentMethod2')}>
                 <Text style={styles.buttonText}>Continue</Text>
             </TouchableOpacity>
         </View>
@@ -82,4 +80,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ForgotPassword;
+export default PaymentMethod;

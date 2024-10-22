@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import TaskBar from './TaskBar/TaskBar';
+import TaskBar from '../TaskBar/TaskBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useNavigation } from 'expo-router';
 
 interface OrderItemProps {
   ShippingCode: string;
@@ -29,6 +30,14 @@ const OrderItem: React.FC<OrderItemProps> = ({ ShippingCode, Status, CurrentLoca
 );
 
 export default function Order() {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'Order' });
+}, [useNavigation]);
+
   const orders: OrderItemProps[] = [
     {
       ShippingCode: '1233',

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, View, TouchableOpacity, Image, TextInput, Text } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import TaskBar from './TaskBar/TaskBar';
+import TaskBar from '../TaskBar/TaskBar';
+import { useNavigation } from 'expo-router';
 
 interface NotificationItemProps {
   status: string;
@@ -20,6 +21,14 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ status, time }) => 
 );
 
 export default function Notification() {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'Notification' });
+}, [useNavigation]);
+
   const notifications: NotificationItemProps[] = [
     {
       status: 'Your order has been delivered to Phuoc Kien Commune, Nha Be.',
@@ -42,10 +51,10 @@ export default function Notification() {
           <View style={styles.searchBar}>
             <TextInput placeholder="Search" style={styles.searchInput} />
             <TouchableOpacity style={styles.searchButton}>
-              <Image source={require('../assets/images/search.png')} style={styles.searchIcon} />
+              <Image source={require('../../assets/images/search.png')} style={styles.searchIcon} />
             </TouchableOpacity>
           </View>
-          <Image source={require('../assets/images/Group28.png')} style={styles.searchRightIcon} />
+          <Image source={require('../../assets/images/Group28.png')} style={styles.searchRightIcon} />
         </View>
         <View style={styles.textSee}>
           <Text style={styles.textLeft}>Unread</Text>

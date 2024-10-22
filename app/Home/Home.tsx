@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
-import TaskBar from './TaskBar/TaskBar';
-import { useRouter } from 'expo-router';
+import TaskBar from '../TaskBar/TaskBar';
+import { useNavigation, useRouter } from 'expo-router';
 const HomeScreen = () => {
   const router = useRouter();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'Home' });
+}, [useNavigation]);
 
 
   return (
@@ -13,7 +19,7 @@ const HomeScreen = () => {
         {/* Header Section */}
         <View style={styles.header}>
           <View style={styles.leftSection}>
-            <TouchableOpacity style={styles.personButton} onPress={() => router.push('/Account')}>
+            <TouchableOpacity style={styles.personButton} onPress={() => router.push('../Home/Account')}>
               <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }} style={styles.personIcon} />
             </TouchableOpacity>
             <View style={styles.addressRow}>
@@ -21,7 +27,7 @@ const HomeScreen = () => {
               <Text style={styles.addressValue}>288, Do Xuan Hop</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.notificationButton} onPress={() => router.push('/Notification')}>
+          <TouchableOpacity style={styles.notificationButton} onPress={() => router.push('./Notification')}>
             <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1827/1827392.png' }} style={styles.notificationIcon} />
           </TouchableOpacity>
         </View>
@@ -44,14 +50,14 @@ const HomeScreen = () => {
             </View>
             <View style={styles.orderRight}>
               <TouchableOpacity>
-                <Image source={require('../assets/images/Remove-bg.ai_1727594388867 1.png')} />
+                <Image source={require('../../assets/images/Remove-bg.ai_1727594388867 1.png')} />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.orderInputContainer}>
             <TextInput placeholder="Your position" style={styles.orderInput} />
             <TouchableOpacity style={styles.scanButton}>
-              <Image source={require('../assets/images/scan.png')} style={styles.scanIcon} />
+              <Image source={require('../../assets/images/scan.png')} style={styles.scanIcon} />
             </TouchableOpacity>
           </View>
         </View>
@@ -71,15 +77,15 @@ const HomeScreen = () => {
         {/* Action Buttons */}
         <View style={styles.actions}>
           <TouchableOpacity style={styles.actionButton}>
-            <Image source={require('../assets/images/image17.png')} />
+            <Image source={require('../../assets/images/image17.png')} />
             <Text style={styles.actionText}>Check Goods</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionButton}>
-            <Image source={require('../assets/images/TaoDon.png')} />
+            <Image source={require('../../assets/images/TaoDon.png')} />
             <Text style={styles.actionText}>Create Order</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionButton}>
-            <Image source={require('../assets/images/TraCuu.png')} />
+            <Image source={require('../../assets/images/TraCuu.png')} />
             <Text style={styles.actionText}>Track</Text>
           </TouchableOpacity>
         </View>
@@ -90,21 +96,21 @@ const HomeScreen = () => {
           <View style={styles.vehicleRow}>
             <TouchableOpacity style={styles.vehicleItem}>
               <Text style={styles.vehicleText}>Pickup Truck</Text>
-              <Image source={require('../assets/images/XeBanTai.png')} style={styles.vehicleIcon} />
+              <Image source={require('../../assets/images/XeBanTai.png')} style={styles.vehicleIcon} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.vehicleItem}>
             <Text style={styles.vehicleText}>Truck</Text>
-            <Image source={require('../assets/images/XeTai.png')} style={styles.vehicleIcon} />
+            <Image source={require('../../assets/images/XeTai.png')} style={styles.vehicleIcon} />
             </TouchableOpacity>
           </View>
           <View style={styles.vehicleRow}>
             <TouchableOpacity style={styles.vehicleItem}>
             <Text style={styles.vehicleText}>Container</Text>
-            <Image source={require('../assets/images/Container.png')} style={styles.vehicleIcon} />
+            <Image source={require('../../assets/images/Container.png')} style={styles.vehicleIcon} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.vehicleItem}>
             <Text style={styles.vehicleText}>Other</Text>
-            <Image source={require('../assets/images/Khac.png')} style={styles.vehicleIcon} />
+            <Image source={require('../../assets/images/Khac.png')} style={styles.vehicleIcon} />
             </TouchableOpacity>
           </View>
           

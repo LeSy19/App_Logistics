@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import TaskBar from './TaskBar/TaskBar';
+import TaskBar from '../TaskBar/TaskBar';
+import { router, useNavigation, useRouter } from 'expo-router';
+
+
 
 interface OrderItemProps {
   date: string;
@@ -42,7 +45,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ date, status, pickupLocation, del
       </View>
     </View>
     <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('./Rate')}>
         <ThemedText style={styles.buttonText}>Rate</ThemedText>
       </TouchableOpacity>
       <TouchableOpacity>
@@ -53,6 +56,16 @@ const OrderItem: React.FC<OrderItemProps> = ({ date, status, pickupLocation, del
 );
 
 export default function History() {
+  const router = useRouter();
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'History' });
+}, [useNavigation]);
+
+  
   // Mock data for frontend development
   const orders: OrderItemProps[] = [
     {
@@ -96,7 +109,7 @@ export default function History() {
                 <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/54/54481.png' }} style={styles.searchIcon} />
               </TouchableOpacity>
             </View>
-            <Image source={require('../assets/images/Group28.png')} style={styles.searchRightIcon} />
+            <Image source={require('../../assets/images/Group28.png')} style={styles.searchRightIcon} />
           </View>
         
           {orders.map((order, index) => (

@@ -39,9 +39,9 @@ const Register = () => {
     <View style={styles.container}>
       {/* Logo nested within image and centered */}
       <View style={styles.viewContainer}>
-        <Image style={styles.image} source={require('../assets/images/image_5.png')} />
+        <Image style={styles.image} source={require('../../assets/images/image_5.png')} />
         <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require('../assets/images/Remove-bg.ai_1727594388867 1.png')} />
+          <Image style={styles.logo} source={require('../../assets/images/Remove-bg.ai_1727594388867 1.png')} />
         </View>
       </View>
 

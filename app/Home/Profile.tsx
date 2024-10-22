@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import TaskBar from './TaskBar/TaskBar';
+import TaskBar from '../TaskBar/TaskBar';
+import { useNavigation } from 'expo-router';
 
 
 export default function YourProfile () {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'Your Profile' });
+}, [useNavigation]);
   
 
   return (

@@ -30,10 +30,10 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="SignUp" options={{ headerShown: false }} />
-        <Stack.Screen name="Home" options={{ headerShown: false }} />
-        <Stack.Screen name="ForgotPassword" options={{ headerShown: false }} />
-        <Stack.Screen name="ComfirmEmail" options={{ headerShown: false }} />
+        <Stack.Screen name="Account/SignUp" options={{ headerShown: false }} />
+        <Stack.Screen name="Home/Home" options={{ headerShown: false }} />
+        <Stack.Screen name="Account/ForgotPassword" options={{ headerShown: false }} />
+        <Stack.Screen name="Account/ComfirmEmail" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

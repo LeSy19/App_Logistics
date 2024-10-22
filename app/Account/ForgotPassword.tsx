@@ -22,7 +22,7 @@ const ForgotPassword = () => {
             return;
         }
         else{
-            router.replace('/ComfirmEmail');
+            router.replace('./ComfirmEmail');
         }
         // Handle new password confirmation here
         Alert.alert('Notification', 'Password has been reset successfully.');

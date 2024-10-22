@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import TaskBar from './TaskBar/TaskBar';
-import { useRouter } from 'expo-router';
+import TaskBar from '../TaskBar/TaskBar';
+import { useNavigation, useRouter } from 'expo-router';
 
 export default function Account () {
   const router = useRouter();
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'Account' });
+}, [useNavigation]);
 
   return (
     <View style={styles.container}>
@@ -19,7 +26,7 @@ export default function Account () {
           <View />
         </View>
         <View style={styles.optionContainer}>
-          <TouchableOpacity style={styles.optionRow} onPress={() => router.push('/Profile')}>
+          <TouchableOpacity style={styles.optionRow} onPress={() => router.push('./Profile')}>
             <Ionicons name="person" size={20} color="black" style={styles.iconOption} />
             <Text style={styles.textOption}>Your Profile</Text>
           </TouchableOpacity>
@@ -34,7 +41,7 @@ export default function Account () {
             <Text style={styles.textOption}>Settings</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionRow} onPress={() => router.replace('/PaymentMethod')}>
+          <TouchableOpacity style={styles.optionRow} onPress={() => router.replace('../Payment/PaymentMethod')}>
             <Ionicons name="language" size={20} color="black" style={styles.iconOption} />
             <Text style={styles.textOption}>Language</Text>
           </TouchableOpacity>
