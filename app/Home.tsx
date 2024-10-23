@@ -20,7 +20,6 @@ const CAROUSEL_ITEM_WIDTH = 250;
 const AUTO_SCROLL_INTERVAL = 3000; // 3 seconds
 
 
-
 export default function HomeScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
@@ -32,7 +31,7 @@ export default function HomeScreen() {
     { icon: "heart", color: "#D0021B", size: 50, order: "4th" },
   ];
 
-  
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -106,7 +105,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.addLocationButton}>
-        <Ionicons name="create-outline" size={24} color="black" />
+        <Ionicons name="create-outline" size={24} color="black" /> 
           <Text style={styles.addLocationText}>Create order</Text>
         </TouchableOpacity>
 
