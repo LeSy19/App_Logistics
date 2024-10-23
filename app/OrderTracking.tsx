@@ -81,16 +81,16 @@ export default function Order() {
 
 const styles = StyleSheet.create({
   received: {
-    fontSize: 25,
+    fontSize: 30,
     color: 'red',
   },
 
   confirm: {
-    fontSize: 25,
+    fontSize: 30,
     color: 'red',
   },
   handle: {
-    fontSize: 25,
+    fontSize: 30,
     color: 'red',
   },
   delivered1: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   delivery: {
-    fontSize: 20,
+    fontSize: 30,
   },
   separator: {
     borderBottomWidth: 2,
