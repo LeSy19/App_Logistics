@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import Entypo from '@expo/vector-icons/Entypo';
 
 const CreateOrder = () => {
     const [date, setDate] = useState('');
@@ -17,7 +16,6 @@ const CreateOrder = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.inputContainer}>
 
-      <Entypo name="location-pin" size={30} color="black" />
 
         <TextInput
           placeholder="Your location " 

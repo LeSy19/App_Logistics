@@ -51,11 +51,11 @@ export default function Order() {
                   </View>
 
                   <View style={styles.row}>
-                  <AntDesign name="shoppingcart" size={70} color="black" />
-                  <Ionicons name="document-text-outline" size={70} color="black" />
-                  <AntDesign name="checkcircleo" size={70} color="black" />
-                  <AntDesign name="inbox" size={70} color="black" />
-                  <Feather name="truck" size={70} color="black" />
+                  <AntDesign name="shoppingcart" size={30} color="black" />
+                  <Ionicons name="document-text-outline" size={30} color="black" />
+                  <AntDesign name="checkcircleo" size={30} color="black" />
+                  <AntDesign name="inbox" size={30} color="black" />
+                  <Feather name="truck" size={30} color="black" />
                   </View>
                   <View style={styles.row}>
                     <Text style={styles.handle}>Handle</Text>
@@ -81,35 +81,35 @@ export default function Order() {
 
 const styles = StyleSheet.create({
   received: {
-    fontSize: 30,
+    fontSize: 15,
     color: 'red',
   },
 
   confirm: {
-    fontSize: 30,
+    fontSize: 15,
     color: 'red',
   },
   handle: {
-    fontSize: 30,
+    fontSize: 15,
     color: 'red',
   },
   delivered1: {
-    fontSize: 20,
+    fontSize: 10,
     color: 'red',
   },
   delivered2: {
-    fontSize: 20,
+    fontSize: 10,
     color: 'red',
   },
   delivered3: {
-    fontSize: 20,
+    fontSize: 10,
     color: 'red',
   },
   delivered: {
-    fontSize: 20,
+    fontSize: 10,
   },
   delivery: {
-    fontSize: 30,
+    fontSize: 15,
   },
   separator: {
     borderBottomWidth: 2,
