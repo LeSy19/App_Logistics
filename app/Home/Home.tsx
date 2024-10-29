@@ -11,7 +11,13 @@ const HomeScreen = () => {
     navigation.setOptions({ title: 'Home' });
 }, [useNavigation]);
 
+const handleCreateOrder = () => {
+  router.push('../Home/CreateOrder');
+}
 
+const handleOrderTracking = () => {
+  router.push('../Home/OrderTracking');
+}
   return (
     <View style={{ flex: 1, backgroundColor: '#f0f0f0' }}>
       <ScrollView>
@@ -80,11 +86,11 @@ const HomeScreen = () => {
             <Image source={require('../../assets/images/image17.png')} />
             <Text style={styles.actionText}>Check Goods</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity style={styles.actionButton} onPress={handleCreateOrder}>
             <Image source={require('../../assets/images/TaoDon.png')} />
             <Text style={styles.actionText}>Create Order</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity style={styles.actionButton} onPress={handleOrderTracking}>
             <Image source={require('../../assets/images/TraCuu.png')} />
             <Text style={styles.actionText}>Track</Text>
           </TouchableOpacity>

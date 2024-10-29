@@ -11,13 +11,13 @@ export default function Account() {
 
     const navigation = useNavigation();
 
-  useEffect(() => {
-    // Set the header title
-    navigation.setOptions({ title: 'Rating' });
-}, [useNavigation]);
+    useEffect(() => {
+        // Set the header title
+        navigation.setOptions({ title: 'Rating' });
+    }, [useNavigation]);
 
     const handleAddMedia = () => {
-        // Xử lý thêm hình ảnh/video (có thể mở máy ảnh hoặc thư viện ảnh)
+        // Handle adding image/video (can open camera or photo library)
         console.log('Add Image/Video Pressed');
     };
 
@@ -36,7 +36,7 @@ export default function Account() {
                 </View>
 
                 <View style={styles.rateStar}>
-                    <Text style={styles.rateText}>Bạn cảm thấy dịch vụ của chúng tôi như thế nào?</Text>
+                    <Text style={styles.rateText}>How do you feel about our service?</Text>
                     <View style={styles.starContainer}>
                         <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
                         <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
@@ -46,7 +46,7 @@ export default function Account() {
                     </View>
 
                     <View>
-                        <Text style={styles.rateText}>Thêm hình ảnh/video</Text>
+                        <Text style={styles.rateText}>Add Image/Video</Text>
                         <TouchableOpacity style={styles.addButton} onPress={handleAddMedia}>
                             <View style={styles.graySquare}>
                                 <Ionicons name="add" size={30} color="#FFFFFF" />
@@ -55,14 +55,14 @@ export default function Account() {
                     </View>
 
                     <View>
-                        <Text style={styles.rateText}>Nhận xét</Text>
+                        <Text style={styles.rateText}>Comments</Text>
                         <TextInput
                             style={styles.textarea}
                             multiline
-                            numberOfLines={4} // Số dòng hiển thị ban đầu
+                            numberOfLines={4} // Initial display lines
                             onChangeText={setText}
                             value={text}
-                            placeholder="Nhập nội dung ở đây..."
+                            placeholder="Enter content here..."
                         />
                     </View>
                 </View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     scrollViewContent: {
         padding: 20,
-        paddingBottom: 80, // Thêm một số padding ở dưới để dành chỗ cho TaskBar
+        paddingBottom: 80, // Additional padding at the bottom for TaskBar space
     },
     row: {
         alignItems: 'center',
@@ -117,21 +117,21 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     graySquare: {
-        width: 60,  // Chiều rộng của hình vuông
-        height: 60, // Chiều cao của hình vuông
-        backgroundColor: '#808080', // Màu xám
-        justifyContent: 'center', // Căn giữa nội dung
-        alignItems: 'center', // Căn giữa nội dung
-        borderRadius: 8, // Thêm bo góc nếu cần
+        width: 60,  // Square width
+        height: 60, // Square height
+        backgroundColor: '#808080', // Gray color
+        justifyContent: 'center', // Center content
+        alignItems: 'center', // Center content
+        borderRadius: 8, // Add rounded corners if needed
     },
    
     textarea: {
-        height: 100, // Chiều cao của textarea
+        height: 100, // Textarea height
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
         padding: 10,
-        textAlignVertical: 'top', // Căn văn bản từ trên cùng
+        textAlignVertical: 'top', // Align text from the top
         marginTop: 10,
         backgroundColor: '#D9D9D9'
     },

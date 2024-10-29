@@ -34,6 +34,7 @@ export default function RootLayout() {
         <Stack.Screen name="Home/Home" options={{ headerShown: false }} />
         <Stack.Screen name="Account/ForgotPassword" options={{ headerShown: false }} />
         <Stack.Screen name="Account/ComfirmEmail" options={{ headerShown: false }} />
+        
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
