@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import TaskBar from '../TaskBar/TaskBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Feather from '@expo/vector-icons/Feather';
 import { useNavigation } from 'expo-router';
-
-
+import { FontAwesome5 } from '@expo/vector-icons';
 
 interface OrderItemProps {
   OrderID: string;
@@ -23,8 +19,9 @@ const OrderItem: React.FC<OrderItemProps> = ({ OrderID, DeliveryLocation, Delive
   <ThemedView style={styles.orderItem}>
     <ThemedText>Shipping Code: {OrderID}</ThemedText>
     <ThemedText>Current Location: {DeliveryLocation}</ThemedText>
-    <ThemedText>Delivery Time: {DeliveryTime}</ThemedText>
+
     <View style={styles.buttonContainer}>
+      <ThemedText style={styles.deliveryTime}>{DeliveryTime}</ThemedText>
       <TouchableOpacity style={styles.button}>
         <ThemedText style={styles.buttonText}>Contact</ThemedText>
       </TouchableOpacity>
@@ -33,12 +30,12 @@ const OrderItem: React.FC<OrderItemProps> = ({ OrderID, DeliveryLocation, Delive
 );
 
 export default function Order() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-useEffect(() => {
-  // Set the header title
-  navigation.setOptions({ title: 'Order Tracking' });
-}, [useNavigation]);
+  useEffect(() => {
+    // Set the header title
+    navigation.setOptions({ title: 'Order Tracking' });
+  }, [useNavigation]);
 
   const orders: OrderItemProps[] = [
     {
@@ -48,6 +45,14 @@ useEffect(() => {
     },
   ];
 
+  const orderStatus = [
+    { status: 'Processing', date: '12.10.2024', description: 'We have received the order', icon: 'shopping-cart', color: 'red' },
+    { status: 'Order Confirmed', date: '12.10.2024', description: 'We have confirmed the order', icon: 'file-alt', color: 'red' },
+    { status: 'Package Received', date: '13.10.2024', description: 'The package has been received', icon: 'check-circle', color: 'red' },
+    { status: 'In Transit', date: '', description: 'Estimated 3 hours', icon: 'truck', color: 'gray' },
+    { status: 'Delivered', date: '13.10.2024', description: 'Delivered on', icon: 'check-square', color: 'gray' },
+  ];
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <SafeAreaView style={styles.safeArea} edges={['bottom']}>
@@ -55,89 +60,39 @@ useEffect(() => {
           {orders.map((order, index) => (
             <OrderItem key={index} {...order} />
           ))}
-                  <View style={styles.row}>
-                  <Text style={styles.order}>Order Tracking</Text>
-                  </View>
+          <Text style={styles.title}>Order Tracking</Text>
 
-                  <View style={styles.row}>
-                  <AntDesign name="shoppingcart" size={70} color="black" />
-                  <Ionicons name="document-text-outline" size={70} color="black" />
-                  <AntDesign name="checkcircleo" size={70} color="black" />
-                  <AntDesign name="inbox" size={70} color="black" />
-                  <Feather name="truck" size={70} color="black" />
-                  </View>
-                  <View style={styles.row}>
-                    <Text style={styles.handle}>Handle</Text>
-                    <Text style={styles.confirm}>Confirm order</Text>
-                    <Text style={styles.received}>Goods received</Text>
-                    <Text style={styles.delivery}>Shipping</Text>
-                    <Text style={styles.delivery}>Delivered</Text>
-                  </View>
-                  <View style={styles.row}>
-                    <Text style={styles.delivered1}>Received the order on October 12, 2024</Text>
-                    <Text style={styles.delivered2}>Confirmed the order on October 12, 2024</Text>
-                    <Text style={styles.delivered3}>Received the order on October 13, 2024</Text>
-                    <Text style={styles.delivered}>Estimated 3 hours</Text>
-                    <Text style={styles.delivered}>Delivered on October 13, 2024</Text>
-                  </View>
-                  <Text style={styles.order}>Order location</Text>
+          <View style={styles.statusContainer}>
+            {orderStatus.map((item, index) => (
+              <View key={index} style={styles.statusRow}>
+                {/* Icon and line */}
+                <View style={styles.iconContainer}>
+                  <FontAwesome5 name={item.icon} size={33} color={item.color} />
+                  {index < orderStatus.length - 1 && (
+                    <View style={[styles.line, { backgroundColor: item.color }]} />
+                  )}
+                </View>
+
+                {/* Status Text */}
+                <View style={styles.textContainer}>
+                  <Text style={[styles.statusText, { color: item.color }]}>{item.status}</Text>
+                  <Text style={styles.description}>{item.description} {item.date && `on ${item.date}`}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+
+          {/* Map section */}
+          <Text style={styles.locationTitle}>Order Location</Text>
+          <Image source={require('../../assets/images/Frame523.png')} style={styles.mapImage} />
         </ScrollView>
-        <TaskBar />
+        
       </SafeAreaView>
-    </GestureHandlerRootView>
+    </GestureHandlerRootView >
   );
 }
 
 const styles = StyleSheet.create({
-  received: {
-    fontSize: 30,
-    color: 'red',
-  },
-
-  confirm: {
-    fontSize: 30,
-    color: 'red',
-  },
-  handle: {
-    fontSize: 30,
-    color: 'red',
-  },
-  delivered1: {
-    fontSize: 20,
-    color: 'red',
-  },
-  delivered2: {
-    fontSize: 20,
-    color: 'red',
-  },
-  delivered3: {
-    fontSize: 20,
-    color: 'red',
-  },
-  delivered: {
-    fontSize: 20,
-  },
-  delivery: {
-    fontSize: 30,
-  },
-  separator: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#000',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  
-  order: {
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  
   container: {
     flex: 1,
   },
@@ -150,11 +105,6 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     padding: 16,
     paddingBottom: 80, // Add extra padding at the bottom to ensure content is not covered by TaskBar
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
   },
   orderItem: {
     padding: 16,
@@ -169,15 +119,64 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   button: {
+    width: 100,
+    height: 35,
     backgroundColor: 'red',
-    padding: 8,
-    borderRadius: 4,
-    flex: 1,
-    marginHorizontal: 4,
+    borderRadius: 22,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 14,
     color: 'white',
+    textAlign: 'center',
+  },
+  deliveryTime: {
+    alignSelf: 'center',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  statusContainer: {
+    borderLeftWidth: 2,
+    borderLeftColor: '#ccc',
+    paddingLeft: 20,
+    marginHorizontal: 20,
+  },
+  statusRow: {
+    flexDirection: 'row',
+    marginBottom: 24,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  line: {
+    width: 2,
+    height: 24,
+    marginTop: 4,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  statusText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  description: {
+    color: '#666',
+  },
+  locationTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  mapImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
   },
 });

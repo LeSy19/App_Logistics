@@ -16,7 +16,7 @@ const handleCreateOrder = () => {
 }
 
 const handleOrderTracking = () => {
-  router.push('../Home/OrderTracking');
+  router.push('../Home/TrackTheOrder');
 }
   return (
     <View style={{ flex: 1, backgroundColor: '#f0f0f0' }}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Image } from 'react-native';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons'; // import thư viện icon
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'; // Import icon library
 import TaskBar from '../TaskBar/TaskBar';
 import { useNavigation } from 'expo-router';
 
@@ -11,13 +11,12 @@ const Message = () => {
     useEffect(() => {
         // Set the header title and add icon
         navigation.setOptions({
-            
             headerTitle: () => (
                 <View style={styles.headerContainer}>
                     <Image source={require('../../assets/images/image.png')} style={styles.circleImage} />
                     <View style={styles.nameContainer}>
-                        <Text style={styles.headerTitle}>Nguyễn Nam</Text>
-                        <Text style={styles.subHeaderTitle}>Tài xế</Text>
+                        <Text style={styles.headerTitle}>Nguyen Nam</Text>
+                        <Text style={styles.subHeaderTitle}>Driver</Text>
                     </View>
                 </View>
             ),
@@ -29,12 +28,10 @@ const Message = () => {
                 <View style={styles.callContainer}>
                     <TouchableOpacity style={styles.callButton}>
                         <FontAwesome name="phone" size={24} color="#009DF6" />
-
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.callButton}>
                         <FontAwesome name="video-camera" size={24} color="#009DF6" />
-
                     </TouchableOpacity>
                 </View>
             ),
@@ -50,29 +47,29 @@ const Message = () => {
         <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // Điều chỉnh offset để bàn phím không che input
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // Adjust offset so the keyboard doesn't cover the input
         >
             <ScrollView contentContainerStyle={styles.messagesContainer}>
                 <View style={styles.textLeft}>
                     <Text style={styles.textContent}>
-                        Chào Hậu! Hậu có thắc mắc gì về sản phẩm/ dịch vụ (công ty),
-                        hãy để lại lời nhắn, chúng tôi sẽ trả lời trong giây lát. Xin cảm ơn!
+                        Hello Hau! If you have any questions about the product/service (company),
+                        please leave a message, and we will respond shortly. Thank you!
                     </Text>
                     <Text style={styles.time}>12:01 15/03/2024</Text>
                 </View>
                 <View style={styles.textRight}>
-                    <Text style={styles.textContent}>Dịch vụ ABC</Text>
+                    <Text style={styles.textContent}>ABC Service</Text>
                     <Text style={styles.time}>12:01 15/03/2024</Text>
                 </View>
                 <View style={styles.textLeft}>
                     <Text style={styles.textContent}>
-                        Chào Hậu! Hậu có thắc mắc gì về sản phẩm/ dịch vụ (công ty),
-                        hãy để lại lời nhắn, chúng tôi sẽ trả lời trong giây lát. Xin cảm ơn!
+                        Hello Hau! If you have any questions about the product/service (company),
+                        please leave a message, and we will respond shortly. Thank you!
                     </Text>
                     <Text style={styles.time}>12:01 15/03/2024</Text>
                 </View>
                 <View style={styles.textRight}>
-                    <Text style={styles.textContent}>Dịch vụ ABC</Text>
+                    <Text style={styles.textContent}>ABC Service</Text>
                     <Text style={styles.time}>12:01 15/03/2024</Text>
                 </View>
             </ScrollView>
@@ -80,7 +77,7 @@ const Message = () => {
             <View style={styles.inputContent}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Nhập tin nhắn..."
+                    placeholder="Enter message..."
                 />
                 <TouchableOpacity style={styles.icon}>
                     <FontAwesome name="smile-o" size={30} color="#FDE613" />
@@ -109,13 +106,12 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        // paddingVertical: 10,
     },
     circleImage: {
-        width: 40, // Chiều rộng của hình tròn
-        height: 40, // Chiều cao của hình tròn
-        borderRadius: 25, // Bán kính để tạo hình tròn
-        overflow: 'hidden', // Đảm bảo không có phần nào vượt ra ngoài hình tròn
+        width: 40,
+        height: 40,
+        borderRadius: 25,
+        overflow: 'hidden',
     },
     nameContainer: {
         justifyContent: 'center',
@@ -185,6 +181,5 @@ const styles = StyleSheet.create({
     },
     icon: {
         marginHorizontal: 5,
-
     },
 });
