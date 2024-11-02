@@ -31,7 +31,7 @@ export default function Account () {
             <Text style={styles.textOption}>Your Profile</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionRow}>
+          <TouchableOpacity style={styles.optionRow} onPress={() => router.push('./Notification')}>
             <Ionicons name="notifications" size={20} color="black" style={styles.iconOption} />
             <Text style={styles.textOption}>Notifications</Text>
           </TouchableOpacity>
@@ -41,7 +41,7 @@ export default function Account () {
             <Text style={styles.textOption}>Settings</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionRow} onPress={() => router.replace('../Payment/PaymentMethod')}>
+          <TouchableOpacity style={styles.optionRow}>
             <Ionicons name="language" size={20} color="black" style={styles.iconOption} />
             <Text style={styles.textOption}>Language</Text>
           </TouchableOpacity>
