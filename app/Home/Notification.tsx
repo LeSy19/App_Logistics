@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, View, TouchableOpacity, Image, TextInput, Text } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, View, TouchableOpacity, Image, TextInput, Text, Dimensions } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import TaskBar from '../TaskBar/TaskBar';
 import { useNavigation } from 'expo-router';
+
+const {width, height} = Dimensions.get('window');
 
 interface NotificationItemProps {
   status: string;
@@ -91,15 +93,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   textLabel: {
-    fontSize: 18,
+    fontSize: width < 460 ? 18 : 20,
     fontWeight: 'bold',
   },
   status: {
-    fontSize: 16,
+    fontSize: width < 460 ? 16 : 18,
     marginBottom: 8,
   },
   time: {
-    fontSize: 14,
+    fontSize: width < 460 ? 14 : 16,
     color: '#666',
     marginBottom: 8,
   },
@@ -115,9 +117,9 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     borderRadius: 8,
     padding: 10,
-    height: 45,
+    height: width < 460 ? 50 : 60,
     flex: 1,
-    marginRight: 10,
+    marginRight: width < 460 ? 10 : 15,
   },
   searchInput: {
     flex: 1,
@@ -133,8 +135,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   searchRightIcon: {
-    width: 30,
-    height: 30,
+    width: width < 460 ? 30 : 40,
+    height: width < 460 ? 30 : 40,
     alignSelf: 'center',
   },
   textSee: {
@@ -143,11 +145,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   textLeft: {
-    fontSize: 14,
+    fontSize: width < 460 ? 14 : 16,
     color: '#009DF6',
   },
   textRight: {
-    fontSize: 14,
+    fontSize: width < 460 ? 14 : 16,
     color: '#009DF6',
   },
   separator: {

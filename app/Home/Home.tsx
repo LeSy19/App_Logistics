@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
-import TaskBar from '../TaskBar/TaskBar';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useNavigation, useRouter } from 'expo-router';
+import TaskBar from '../TaskBar/TaskBar';
+
 const HomeScreen = () => {
   const router = useRouter();
   const navigation = useNavigation();
+  const { width, height } = Dimensions.get('window'); // Get the dimensions of the window
 
   useEffect(() => {
     // Set the header title
     navigation.setOptions({ title: 'Home' });
-}, [useNavigation]);
+  }, [useNavigation]);
 
-const handleCreateOrder = () => {
-  router.push('../Home/CreateOrder');
-}
+  const handleCreateOrder = () => {
+    router.push('../Home/CreateOrder');
+  }
 
-const handleOrderTracking = () => {
-  router.push('../Home/TrackTheOrder');
-}
+  const handleOrderTracking = () => {
+    router.push('../Home/TrackTheOrder');
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: '#f0f0f0' }}>
       <ScrollView>

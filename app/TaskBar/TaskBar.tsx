@@ -3,6 +3,8 @@ import { View, TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, usePathname } from 'expo-router';
 
+const {width, height} = Dimensions.get('window');
+
 const TaskBar = () => {
   const router = useRouter();
   const currentPath = usePathname();
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
     borderTopWidth: 1,
     borderTopColor: '#E0E0E0',
-    height: 60,
+    height: width < 768 ? 60:70,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabText: {
-    fontSize: 12,
+    fontSize: width < 430 ? 14: 16,
     color: '#8E8E93',
     marginTop: 4,
   },

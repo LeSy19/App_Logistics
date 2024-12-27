@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, TextInput, Dimensions } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import TaskBar from '../TaskBar/TaskBar';
 import { router, useNavigation, useRouter } from 'expo-router';
 
-
+const { width, height } = Dimensions.get('window');
 
 interface OrderItemProps {
   date: string;
@@ -57,51 +57,24 @@ const OrderItem: React.FC<OrderItemProps> = ({ date, status, pickupLocation, del
 
 export default function History() {
   const router = useRouter();
-
   const navigation = useNavigation();
 
   useEffect(() => {
-    // Set the header title
     navigation.setOptions({ title: 'History' });
-}, [useNavigation]);
+  }, [useNavigation]);
 
-  
   // Mock data for frontend development
   const orders: OrderItemProps[] = [
-    {
-      date: '2023-06-01',
-      status: 'Delivered',
-      pickupLocation: '123 Main St, City A',
-      deliveryLocation: '456 Elm St, City B',
-      weight: '10 kg',
-      dimensions: '30x40x50 cm',
-    },
-    {
-      date: '2023-05-28',
-      status: 'In Transit',
-      pickupLocation: '789 Oak St, City C',
-      deliveryLocation: '101 Pine St, City D',
-      weight: '5 kg',
-      dimensions: '20x30x40 cm',
-    },
-    {
-      date: '2023-05-25',
-      status: 'Pending',
-      pickupLocation: '222 Maple Ave, City E',
-      deliveryLocation: '333 Cedar Blvd, City F',
-      weight: '15 kg',
-      dimensions: '40x50x60 cm',
-    },
+    { date: '2023-06-01', status: 'Delivered', pickupLocation: '123 Main St, City A', deliveryLocation: '456 Elm St, City B', weight: '10 kg', dimensions: '30x40x50 cm' },
+    { date: '2023-05-28', status: 'In Transit', pickupLocation: '789 Oak St, City C', deliveryLocation: '101 Pine St, City D', weight: '5 kg', dimensions: '20x30x40 cm' },
+    { date: '2023-05-25', status: 'Pending', pickupLocation: '222 Maple Ave, City E', deliveryLocation: '333 Cedar Blvd, City F', weight: '15 kg', dimensions: '40x50x60 cm' },
   ];
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={styles.container}>
-       
-
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
-           {/* Search Bar */}
-        
+          {/* Search Bar */}
           <View style={styles.searchContainer}>
             <View style={styles.searchBar}>
               <TextInput placeholder="Search" style={styles.searchInput} />
@@ -111,7 +84,7 @@ export default function History() {
             </View>
             <Image source={require('../../assets/images/Group28.png')} style={styles.searchRightIcon} />
           </View>
-        
+
           {orders.map((order, index) => (
             <OrderItem key={index} {...order} />
           ))}
@@ -150,7 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 8,
   },
-  
   infoContainer: {
     flexDirection: 'column',
   },
@@ -173,7 +145,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'center',
     height: 40,
-    width: 120,
+    width: width > 430 ? '30%' : '40%', // Responsive width for button
   },
   buttonText: {
     color: 'white',

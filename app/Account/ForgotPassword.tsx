@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 const ForgotPassword = () => {
-
     const router = useRouter();
 
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [secureTextEntryConfirm, setSecureTextEntryConfirm] = useState(true);
+
+    const { width } = useWindowDimensions(); // Lấy chiều rộng của màn hình
 
     const handleSubmit = () => {
         if (newPassword === '' || confirmPassword === '') {
@@ -21,21 +22,23 @@ const ForgotPassword = () => {
             Alert.alert('Notification', 'Passwords do not match.');
             return;
         }
-        else{
-            router.replace('./ComfirmEmail');
-        }
-        // Handle new password confirmation here
+        router.replace('./ComfirmEmail');
         Alert.alert('Notification', 'Password has been reset successfully.');
     };
 
+    const isSmallScreen = width < 375; // Kiểm tra nếu màn hình nhỏ hơn 375px
+    const isLargeScreen = width > 600; // Kiểm tra nếu màn hình lớn hơn 600px
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Reset Password</Text>
-            <Text style={styles.subtitle}>Please enter a new password and confirm it below</Text>
+        <View style={[styles.container, { padding: isSmallScreen ? 15 : 25 }]}>
+            <Text style={[styles.title, { fontSize: isSmallScreen ? 20 : (isLargeScreen ? 28 : 24) }]}>Reset Password</Text>
+            <Text style={[styles.subtitle, { fontSize: isSmallScreen ? 14 : 16 }]}>
+                Please enter a new password and confirm it below
+            </Text>
 
             <View style={styles.inputContainer}>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { padding: isSmallScreen ? 8 : 10 }]}
                     placeholder="Enter new password"
                     secureTextEntry={secureTextEntry}
                     value={newPassword}
@@ -48,7 +51,7 @@ const ForgotPassword = () => {
 
             <View style={styles.inputContainer}>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { padding: isSmallScreen ? 8 : 10 }]}
                     placeholder="Confirm new password"
                     secureTextEntry={secureTextEntryConfirm}
                     value={confirmPassword}
@@ -59,8 +62,11 @@ const ForgotPassword = () => {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleSubmit} >
-                <Text style={styles.buttonText}>Confirm</Text>
+            <TouchableOpacity
+                style={[styles.button, { padding: isSmallScreen ? 15 : 20 }]}
+                onPress={handleSubmit}
+            >
+                <Text style={[styles.buttonText, { fontSize: isSmallScreen ? 14 : 16 }]}>Confirm</Text>
             </TouchableOpacity>
         </View>
     );
@@ -69,17 +75,14 @@ const ForgotPassword = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 25,
         backgroundColor: '#f5f5f5',
         marginTop: 70,
     },
     title: {
-        fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
     },
     subtitle: {
-        fontSize: 16,
         marginBottom: 20,
     },
     inputContainer: {
@@ -93,18 +96,16 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
+        fontSize: 16,
         padding: 10,
     },
     button: {
         backgroundColor: '#99000C',
-        padding: 20,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 20,
     },
     buttonText: {
         color: '#ffffff',
-        fontSize: 16,
         fontWeight: 'bold',
     },
 });

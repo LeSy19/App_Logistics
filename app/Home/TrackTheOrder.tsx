@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ScrollView, useWindowDimensions } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import TaskBar from '../TaskBar/TaskBar';
-import { ScrollView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router, useNavigation } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context'; // Update import
 
 interface OrderItemProps {
   ShippingCode: string;
@@ -54,6 +53,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ ShippingCode, Status, Delivery, C
 
 export default function Order() {
   const navigation = useNavigation();
+  const { width, height } = useWindowDimensions();  // Get screen dimensions
 
   useEffect(() => {
     navigation.setOptions({ title: 'Tracking' });
@@ -73,7 +73,6 @@ export default function Order() {
       NgayDuTinGiaohang: '20/11/2024',
       onPress: handleOrderTracking,  // Truyền hàm vào đây
     },
-    // Thêm các đơn hàng khác với các thuộc tính tương tự
     {
       ShippingCode: 'DC002',
       Status: 'Delivered',
@@ -83,13 +82,13 @@ export default function Order() {
       NgayDuTinGiaohang: '19/11/2024',
       onPress: handleOrderTracking,
     },
-    // ...thêm các đơn hàng khác nếu cần
+    // Add more orders as needed
   ];
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <SafeAreaView style={styles.safeArea} edges={['bottom']}>
-        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
+        <ScrollView style={styles.scrollView} contentContainerStyle={[styles.scrollViewContent, { paddingBottom: height * 0.1 }]}>
           {orders.map((order, index) => (
             <OrderItem key={index} {...order} />
           ))}
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     padding: 16,
-    paddingBottom: 80, // Add extra padding at the bottom to ensure content is not covered by TaskBar
   },
   orderItem: {
     padding: 16,
@@ -129,7 +127,9 @@ const styles = StyleSheet.create({
   status: {
     backgroundColor: '#5EF845',
     borderRadius: 10,
-    width: 105,
+    width: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textLeft: {
     flex: 1,
@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   buttonText: {
-    flex: 1,
     color: '#007CC2',
     textAlign: 'right',
   },

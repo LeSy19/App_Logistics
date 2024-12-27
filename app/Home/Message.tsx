@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Image } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Image, Dimensions } from 'react-native';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons'; // Import icon library
 import TaskBar from '../TaskBar/TaskBar';
 import { useNavigation } from 'expo-router';
@@ -7,6 +7,7 @@ import { useNavigation } from 'expo-router';
 const Message = () => {
 
     const navigation = useNavigation();
+    const { width, height } = Dimensions.get('window'); // Get the dimensions of the window
 
     useEffect(() => {
         // Set the header title and add icon

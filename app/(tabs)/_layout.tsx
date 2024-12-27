@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router'; // Import useRouter from 'expo-router'
+
+const {width, height} = Dimensions.get('window');
 
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
@@ -86,12 +88,12 @@ const styles = StyleSheet.create({
    
   },
   viewContainer: {
-    height: 200,
+    height:  width < 430 ? 200 : 300,
     alignItems: 'center',
   },
   image: {
     width: '100%',
-    height:200,
+    height: width < 430 ? 200 : 300,
   },
   logoContainer: {
     position: 'absolute',
@@ -101,20 +103,20 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   logo: {
-    width: 80,
-    height: 80,
+    width: width < 430 ? 80 : 100,
+    height: width < 430 ? 80 : 100,
   },
   title: {
-    fontSize: 24,
+    fontSize: width < 430 ? 26 : 28,
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 30,
   },
   input: {
     backgroundColor: '#f5f5f5',
-    padding: 15,
+    padding: 20,
     borderRadius: 10,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
   },
   inputPassword: {
     flex: 1,
-    padding: 15,
+    padding: 20,
   },
   eyeIcon: {
     paddingRight: 10,
@@ -143,13 +145,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center', // Changed to center text vertically
     marginBottom: 10,
-    height: 60,
+    height: width < 430 ? 60 : 65,
   },
   loginButtonText: {
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18, // Changed to center text horizontally
+    fontSize: width < 430 ? 18 : 20, // Changed to center text horizontally
   },
   or: {
     textAlign: 'center',
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   
   socialButton: {
     backgroundColor: '#f5f5f5',
-    padding: 15,
+    padding: width < 430 ? 15 : 18,
     borderRadius: 10,
     alignItems: 'center',
     flexDirection: 'row',

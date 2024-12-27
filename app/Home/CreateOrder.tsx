@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
 import { useNavigation, useRouter } from 'expo-router';
 import Entypo from '@expo/vector-icons/Entypo';
+
+const { width, height } = Dimensions.get('window'); // Lấy kích thước màn hình
 
 const CreateOrder = () => {
   const [date, setDate] = useState('');
@@ -20,17 +22,17 @@ const CreateOrder = () => {
 
   useEffect(() => {
     navigation.setOptions({ title: 'Create Order' });
-  }, [useNavigation]);
+  }, [navigation]);
 
   const handlePayment = () => {
     router.push('../Payment/PaymentMethod');
-  }
+  };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={100} // Điều chỉnh khoảng cách cho phù hợp
+      keyboardVerticalOffset={100}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.inputContainer}>
@@ -135,49 +137,49 @@ const CreateOrder = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Đảm bảo container chiếm toàn bộ không gian
+    flex: 1,
   },
   scrollViewContainer: {
-    padding: 20,
+    padding: 16,
   },
-  inputContainer: {},
+  inputContainer: {
+    marginBottom: 20,
+  },
   inputHeader: {
     position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: '#000',
     borderRadius: 8,
-    padding: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   inputLocation: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 16,
     padding: 10,
   },
   location: {
     position: 'absolute',
     right: 10,
-    top: '70%',
+    top: '50%',
     transform: [{ translateY: -15 }],
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   addAddress: {
     flexDirection: 'row',
-    alignContent: 'space-between',
     justifyContent: 'space-between',
     marginBottom: 20,
+    alignItems: 'center',
   },
   buttonAddress: {
     flexDirection: 'row',
-    width: 131,
-    height: 28,
-    backgroundColor: 'red',
-    borderRadius: 29,
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'red',
+    borderRadius: 25,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
   },
   icon: {
     marginRight: 5,
@@ -185,30 +187,31 @@ const styles = StyleSheet.create({
   textButtonAddress: {
     color: 'white',
     fontSize: 12,
-    textAlign: 'center',
   },
   iconImage: {
     flexDirection: 'row',
-    alignContent: 'flex-end',
+    alignItems: 'center',
   },
   iconImageItem: {
-    width: 45,
+    width: 40,
+    height: 40,
+    marginLeft: 10,
   },
   informationContainer: {
     marginTop: 10,
   },
   information: {
-    padding: 23,
     backgroundColor: '#D9D9D9',
     borderRadius: 8,
-    marginVertical: 6,
+    marginVertical: 5,
+    padding: 20,
   },
   buttonContainer: {
     marginTop: 30,
   },
   button: {
     backgroundColor: 'red',
-    padding: 20,
+    padding: 15,
     borderRadius: 8,
     alignItems: 'center',
     marginBottom: 20,
@@ -219,9 +222,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   label: {
-    color: '#999',
     fontSize: 16,
-    marginBottom: 5,
+    color: '#999',
+    marginBottom: 8,
   },
   dateInputContainer: {
     flexDirection: 'row',

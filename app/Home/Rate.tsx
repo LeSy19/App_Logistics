@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, TextInput, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import TaskBar from '../TaskBar/TaskBar';
 import { useNavigation, useRouter } from 'expo-router';
 
+const { width, height } = Dimensions.get('window'); // Get device dimensions
+
 export default function Account() {
     const router = useRouter();
-
     const [text, setText] = useState('');
-
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -38,11 +38,9 @@ export default function Account() {
                 <View style={styles.rateStar}>
                     <Text style={styles.rateText}>How do you feel about our service?</Text>
                     <View style={styles.starContainer}>
-                        <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
-                        <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
-                        <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
-                        <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
-                        <Ionicons name="star-outline" size={50} color="#FFD700" style={styles.star} />
+                        {[...Array(5)].map((_, index) => (
+                            <Ionicons key={index} name="star-outline" size={50} color="#FFD700" style={styles.star} />
+                        ))}
                     </View>
 
                     <View>
@@ -77,30 +75,30 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     scrollViewContent: {
-        padding: 20,
+        padding: width * 0.05, // Responsive padding based on screen width
         paddingBottom: 80, // Additional padding at the bottom for TaskBar space
     },
     row: {
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: height * 0.03, // Responsive margin
     },
     profileImage: {
-        width: 110,
-        height: 110,
-        borderRadius: 25,
+        width: width * 0.25, // 25% of screen width
+        height: width * 0.25, // 25% of screen width
+        borderRadius: width * 0.125, // Half of width for rounded corners
     },
     greeting: {
-        fontSize: 24,
+        fontSize: width * 0.06, // Responsive font size
         fontWeight: 'bold',
         marginVertical: 5,
     },
     rateStar: {
         flex: 1,
-        padding: 15,
-        marginBottom: 15,
+        padding: width * 0.05, // Responsive padding
+        marginBottom: height * 0.02, // Responsive margin
     },
     rateText: {
-        fontSize: 15,
+        fontSize: width * 0.04, // Responsive font size
     },
     starContainer: {
         flexDirection: 'row',
@@ -112,27 +110,25 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 15,
     },
-
     addButton: {
-        padding: 15,
+        padding: width * 0.05, // Responsive padding
     },
     graySquare: {
-        width: 60,  // Square width
-        height: 60, // Square height
+        width: width * 0.15,  // 15% of screen width
+        height: width * 0.15, // 15% of screen width
         backgroundColor: '#808080', // Gray color
         justifyContent: 'center', // Center content
         alignItems: 'center', // Center content
         borderRadius: 8, // Add rounded corners if needed
     },
-   
     textarea: {
-        height: 100, // Textarea height
+        height: height * 0.2, // 20% of screen height for textarea
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
-        padding: 10,
+        padding: width * 0.03, // Responsive padding
         textAlignVertical: 'top', // Align text from the top
-        marginTop: 10,
-        backgroundColor: '#D9D9D9'
+        marginTop: height * 0.02, // Responsive margin
+        backgroundColor: '#D9D9D9',
     },
 });

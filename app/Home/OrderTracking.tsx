@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image, useWindowDimensions } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import TaskBar from '../TaskBar/TaskBar';
@@ -31,6 +31,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ OrderID, DeliveryLocation, Delive
 
 export default function Order() {
   const navigation = useNavigation();
+  const { width, height } = useWindowDimensions(); // Use useWindowDimensions instead of Dimensions.get
 
   useEffect(() => {
     // Set the header title
@@ -65,7 +66,6 @@ export default function Order() {
           <View style={styles.statusContainer}>
             {orderStatus.map((item, index) => (
               <View key={index} style={styles.statusRow}>
-                {/* Icon and line */}
                 <View style={styles.iconContainer}>
                   <FontAwesome5 name={item.icon} size={33} color={item.color} />
                   {index < orderStatus.length - 1 && (
@@ -73,7 +73,6 @@ export default function Order() {
                   )}
                 </View>
 
-                {/* Status Text */}
                 <View style={styles.textContainer}>
                   <Text style={[styles.statusText, { color: item.color }]}>{item.status}</Text>
                   <Text style={styles.description}>{item.description} {item.date && `on ${item.date}`}</Text>
@@ -82,11 +81,9 @@ export default function Order() {
             ))}
           </View>
 
-          {/* Map section */}
           <Text style={styles.locationTitle}>Order Location</Text>
           <Image source={require('../../assets/images/Frame523.png')} style={styles.mapImage} />
         </ScrollView>
-        
       </SafeAreaView>
     </GestureHandlerRootView >
   );
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   button: {
-    width: 100,
+    width: '30%', // Percentage-based width to adjust for all screen sizes
     height: 35,
     backgroundColor: 'red',
     borderRadius: 22,
@@ -148,6 +145,7 @@ const styles = StyleSheet.create({
   statusRow: {
     flexDirection: 'row',
     marginBottom: 24,
+    flexWrap: 'wrap', // Allow wrapping of text if space is limited
   },
   iconContainer: {
     alignItems: 'center',
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   mapImage: {
-    width: '100%',
+    width: '100%', // Full width for images
     height: 200,
     resizeMode: 'cover',
   },
